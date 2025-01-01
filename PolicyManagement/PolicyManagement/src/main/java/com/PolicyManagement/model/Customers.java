@@ -3,25 +3,45 @@ package com.PolicyManagement.model;
 
 import jakarta.persistence.*;
 
-@Entity
+import java.util.List;
 
+
+@Entity
+@Table(name = "Customers")
 public class Customers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
+    @Column(name = "name")
     private String name;
+    @Column(name="email")
     private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "status")
     private String status;
+    @Column(name = "date_of_registration")
     private String dateOfRegistration;
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
-    @OneToOne(mappedBy = "customers") // mappedBy refers to the field name in Address
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Policy> policies;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Claim> claims;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Feedback> feedbacks;
+
+    @OneToOne(mappedBy = "customers", cascade = CascadeType.ALL) // mappedBy refers to the field name in Address
     private Address address;
-    public Customers(Long customerId, String name, String email, String password, String phoneNumber, String status, String dateOfRegistration, Address address) {
-        this.customerId = customerId;
+    public Customers(String name, String email, String password, String phoneNumber, String status, String dateOfRegistration, Address address) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,6 +54,7 @@ public class Customers {
     public Customers() {
 
     }
+
 
     public Long getCustomerId() {
         return customerId;
@@ -99,6 +120,5 @@ public class Customers {
         this.address = address;
     }
 
-    public Customers(String name, String email, String encode, String phoneNumber, String status, Address address) {
-    }
+
 }

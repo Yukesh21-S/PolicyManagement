@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -17,7 +17,7 @@ public class SecurityConfiguration {
 
     private final CustomerService customerService;
 
-    public SecurityConfiguration( @Lazy CustomerService customerService) {
+    public SecurityConfiguration(@Lazy CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -29,31 +29,33 @@ public class SecurityConfiguration {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(customerService);  // Using customerService as UserDetailsService
+        auth.setUserDetailsService(customerService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
 
-    @Configuration
-    public static class SecurityConfigurer {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/registration**", "/js/**", "/css/**", "/img/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/home", true)
+                )
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                )
+                .csrf(csrf -> csrf.disable());
 
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .authorizeHttpRequests(authz -> authz
-                            .requestMatchers("/registration**", "/js/**", "/css/**", "/img/**").permitAll()  // Allowing public access to these paths
-                            .anyRequest().authenticated()  // Securing the rest of the endpoints
-                    )
-                    .formLogin(form -> form
-                            .loginPage("/login")
-                            .permitAll()
-                    )
-                    .logout(logout -> logout
-                            .invalidateHttpSession(true)
-                            .clearAuthentication(true)
-                            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                            .logoutSuccessUrl("/login?logout")
-                            .permitAll()
-                    );
-        }
+        return http.build();
     }
 }

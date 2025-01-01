@@ -28,6 +28,7 @@ public class CustomerServiceImplementation implements CustomerService {
         Customers customer = new Customers(
                 registrationDto.getName(),
                 registrationDto.getEmail(),
+                registrationDto.getDateOfRegistration(),
                 passwordEncoder.encode(registrationDto.getPassword()),
                 registrationDto.getPhoneNumber(),
                 registrationDto.getStatus(),

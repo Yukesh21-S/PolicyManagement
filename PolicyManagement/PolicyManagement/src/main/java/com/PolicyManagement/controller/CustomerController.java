@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/customers")
+@RequestMapping("/registration")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
     // Create new customer
-    @GetMapping("/register")
+    @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("customer", new CustomerRegistrationDto());
-        return "customer-register";  // Thymeleaf template name
+        return "registration";  // Thymeleaf template name
     }
-    @PostMapping("/register")
+    @PostMapping
     public String createCustomer(@ModelAttribute CustomerRegistrationDto registrationDto, Model model) {
         Customers customer = customerService.save(registrationDto);
         model.addAttribute("message", "Customer successfully registered!");
-        return "redirect:/customers/list"; // Redirect after successful registration
+        return "redirect:/registration?success"; // Redirect after successful registration
     }
 }
 
