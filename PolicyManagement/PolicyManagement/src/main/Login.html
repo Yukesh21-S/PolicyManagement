@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Customer Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Policy Management System</a>
+        </div>
+    </div>
+</nav>
+
+<br><br>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Customer Registration</h1>
+
+            <form id="registration-form">
+           
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" id="Name" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" id="phoneNumber" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfRegistration">Date of Registration</label>
+                    <input type="date" id="dateOfRegistration" class="form-control" required />
+                </div>
+
+             
+                <h3>Address</h3>
+
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" id="street" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/login">Login here</a></span>
+                </div>
+            </form>
+
+          
+            <div id="success-message" class="alert alert-success" style="display:none;">
+                Successfully registered!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    
+    $("#registration-form").submit(function (event) {
+        event.preventDefault(); 
+
+      
+        let isValid = true;
+        $("input[required]").each(function () {
+            if ($(this).val() === "") {
+                isValid = false;
+            }
+        });
+
+     
+        if (isValid) {
+    
+            $("#success-message").show();
+            $('#registration-form')[0].reset();  
+        } else {
+            alert("Please fill in all required fields.");
+        }
+    });
+</script>
+
+</body>
+</html>
