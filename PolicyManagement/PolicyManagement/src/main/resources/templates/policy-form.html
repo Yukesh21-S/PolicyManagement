@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create / Edit Policy</title>
+
+  <style>
+    /* Resetting some default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8; /* Light gray background */
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50; /* Dark blue color */
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+      color: #34495e; /* Dark gray for labels */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px 0;
+      border: 1px solid #bdc3c7; /* Light gray border */
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    select {
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #3498db; /* Blue background */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #3498db; /* Blue color for link */
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+<h1 th:text="${policy.policyId != null ? 'Edit Policy' : 'Create Policy'}"></h1>
+
+<form th:action="@{/policies/save}" th:object="${policy}" method="post">
+  <label for="name">Policy Name:</label>
+  <input type="text" th:field="*{name}" id="name" required>
+  <br>
+
+  <label for="description">Description:</label>
+  <input type="text" th:field="*{description}" id="description" required>
+  <br>
+
+  <label for="premiumAmount">Premium Amount:</label>
+  <input type="number" th:field="*{premiumAmount}" id="premiumAmount" required>
+  <br>
+
+  <label for="startDate">Start Date:</label>
+  <input type="date" th:field="*{startDate}" id="startDate" required>
+  <br>
+  <label for="totalPremiumAmount">TotalPremiumAmount:</label>
+  <input type="number" th:field="*{totalPremiumAmount}" id="totalPremiumAmount" required>
+  <br>
+  <label for="maturityAmount">MaturityAmount</label>
+  <input type="number" th:field="*{maturityAmount}" id="maturityAmount" required>
+  <br>
+  <label for="numberOfYears">NumberOfYears:</label>
+  <input type="number" th:field="*{numberOfYears}" id="numberOfYears" required>
+  <br>
+
+  <label for="scheme">Scheme:</label>
+  <select th:field="*{scheme}" id="scheme">
+    <option value="" disabled selected>Select Scheme</option>
+    <option th:each="scheme : ${schemes}" th:value="${scheme.schemeId}" th:text="${scheme.name}"></option>
+  </select>
+  <br>
+
+  <label for="policyStatus">Policy Status:</label>
+  <select th:field="*{policyStatus}" id="policyStatus">
+    <option value="ACTIVE">Active</option>
+    <option value="INACTIVE">Inactive</option>
+  </select>
+  <br>
+
+  <button type="submit">Save Policy</button>
+</form>
+
+<a href="/policies">Back to Policies</a>
+</body>
+</html>
