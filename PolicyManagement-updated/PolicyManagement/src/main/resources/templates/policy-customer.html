@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customers for Policy</title>
+</head>
+<body>
+<h1>Customers for Policy: <span th:text="${policyName}"></span></h1>
+
+<div th:if="${customers.isEmpty()}">
+    <p>No customers have applied for this policy.</p>
+</div>
+
+<div th:if="${not customers.isEmpty()}">
+    <table border="1" cellspacing="0" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

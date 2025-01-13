@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Claim Status for Policy</title>
+</head>
+<body>
+
+<h1>Claim Status for Policy: <span th:text="${policyName}"></span></h1>
+
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+
+<div th:if="${claimStatus != null}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Claim Status</th>
+            <th>Admin Action Message</th>
+            <th>Claim Reason</th>
+            <th>Claim Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${claimStatus}"></td>
+            <td th:text="${adminActionMessage}"></td>
+            <td th:text="${claimReason}"></td>
+            <td th:text="${claimDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="/customer/home">Back to Dashboard</a>
+
+</body>
+</html>

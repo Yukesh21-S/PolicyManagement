@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Details</title>
+</head>
+<body>
+<h1>Customer Details</h1>
+<!-- Display error message if available -->
+<div th:if="${error}">
+    <p th:text="${error}" style="color: red;"></p>
+</div>
+
+<!-- Display customer details if available -->
+<div th:if="${customer}">
+    <p><strong>Name:</strong> <!--/*@thymesVar id="name" type=""*/-->
+    <span th:text="${customer.name}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${customer.phoneNumber}"></span></p>
+
+    <h3>Address</h3>
+    <p th:if="${customer.address}">
+        <strong>Country:</strong> <span th:text="${customer.address.country}"></span><br>
+        <strong>State:</strong> <span th:text="${customer.address.state}"></span><br>
+        <strong>City:</strong> <span th:text="${customer.address.city}"></span><br>
+        <strong>Street:</strong> <span th:text="${customer.address.street}"></span>
+    </p>
+</div>
+
+<a href="/customer/my-policies">View My Policies</a>
+<a href="/customer/home">Back to Home</a>
+</body>
+</html>

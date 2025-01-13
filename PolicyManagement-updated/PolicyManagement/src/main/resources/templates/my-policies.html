@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Policies</title>
+</head>
+<body>
+<h1>My Applied Policies</h1>
+
+<div th:if="${error}">
+    <p th:text="${error}" style="color: red;"></p>
+</div>
+
+<div th:if="${policies.isEmpty()}">
+    <p>No policies applied yet.</p>
+</div>
+
+<table th:if="${!policies.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Policy Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="policy : ${policies}">
+        <td th:text="${policy.name}"></td>
+        <td th:text="${policy.description}"></td>
+        <td th:text="${policy.startDate}"></td>
+        <td>
+            <a th:href="@{/claim/claimPolicy/{policyId}(policyId=${policy.policyId})}">Claim</a>
+        </td>
+        <td>
+            <a th:href="@{/customer/claimed-customers/{claimId}(claimId=${policy.policyId})}">View Claim Status</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

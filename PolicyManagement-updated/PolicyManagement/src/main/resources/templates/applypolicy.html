@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Policy</title>
+  <link rel="stylesheet" href="path/to/your/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Apply for Policy</h1>
+
+  <!-- Display error or success messages -->
+  <div th:if="${error}">
+    <p class="error-message" th:text="${error}"></p>
+  </div>
+  <div th:if="${message}">
+    <p class="success-message" th:text="${message}"></p>
+  </div>
+
+  <!-- Policy Application Form -->
+  <form th:action="@{/apply-policy}" method="POST">
+    <!-- Hidden field for the policyId -->
+    <input type="hidden" name="policyId" th:value="${policy.policyId}">
+
+    <h2>Policy Details</h2>
+    <p><strong>Policy Name:</strong> <span th:text="${policy.name}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${policy.description}"></span></p>
+    <p><strong>Premium Amount:</strong> <span th:text="${policy.premiumAmount}"></span></p>
+
+    <h3>Select Payment Method</h3>
+    <!-- Payment Method Selection -->
+    <label for="paymentMethod">Choose a payment method:</label>
+    <select name="paymentMethod" id="paymentMethod">
+      <option value="Credit Card">Credit Card</option>
+      <option value="Debit Card">Debit Card</option>
+      <option value="PayPal">PayPal</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+      <!-- Add more payment methods as needed -->
+    </select>
+
+    <button type="submit">Apply for Policy</button>
+  </form>
+
+  <!-- Back to Home -->
+  <div>
+    <a href="/customer/home">Back to Home</a>
+  </div>
+</div>
+
+</body>
+</html>

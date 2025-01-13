@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Claim Policy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Claim Policy</h1>
+
+    <!-- Display the Policy Name -->
+    <p>
+        Policy Name: <span th:text="${policy.name}"></span>
+    </p>
+
+    <!-- Claim Submission Form -->
+    <form th:action="@{/claim/claimPolicy/{policyId}(policyId=${policy.policyId})}" method="post">
+        <div class="mb-3">
+            <label for="claimReason" class="form-label">Reason for Claim</label>
+            <textarea id="claimReason" name="claimReason" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Claim</button>
+    </form>
+
+    <!-- Alerts for Errors or Success Messages -->
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+    <div th:if="${message}" class="alert alert-success mt-3" th:text="${message}"></div>
+
+    <!-- Back to Policies Button -->
+    <a th:href="@{/customer/my-policies}" class="btn btn-secondary mt-3">Back to Policies</a>
+</div>
+</body>
+</html>

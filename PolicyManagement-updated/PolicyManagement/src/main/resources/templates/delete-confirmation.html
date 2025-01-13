@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Deletion</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Confirm Account Deletion</h1>
+
+    <!-- Display error message -->
+    <div>
+        <span style="color: red;" th:if="${error}" th:text="${error}"></span>
+    </div>
+
+    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+
+    <!-- Confirmation form -->
+    <form action="/customer/delete" method="post">
+        <div class="form-group">
+            <label for="password"><strong>Enter your password:</strong></label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" class="btn">Confirm Deletion</button>
+        </div>
+    </form>
+
+    <!-- Back to Home -->
+    <div class="form-group">
+        <a href="/customer/home">Cancel</a>
+    </div>
+</div>
+</body>
+</html>

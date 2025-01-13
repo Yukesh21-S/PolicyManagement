@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Customer Details</title>
+    <!-- Optional: Link to your CSS -->
+
+</head>
+<body>
+<div class="container">
+    <h1>Update Customer Details</h1>
+
+    <!-- Display success or error messages -->
+    <div>
+        <span style="color: green;" th:if="${message}" th:text="${message}"></span>
+        <span style="color: red;" th:if="${error}" th:text="${error}"></span>
+    </div>
+
+    <!-- Update form -->
+    <form action="/customer/update" method="post">
+        <!-- Customer Name -->
+        <div class="form-group">
+            <label for="name"><strong>Name:</strong></label>
+            <input type="text" id="name" name="name" th:value="${customer.name}" required>
+        </div>
+
+        <!-- Customer Email (Read-only) -->
+        <div class="form-group">
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" name="email" th:value="${customer.email}" readonly>
+        </div>
+
+        <!-- Customer Password -->
+        <div class="form-group">
+            <label for="password"><strong>Password:</strong></label>
+            <input type="password" id="password" name="password" th:value="${customer.password}" required>
+        </div>
+
+        <!-- Customer Phone -->
+        <div class="form-group">
+            <label for="phone"><strong>Phone:</strong></label>
+            <input type="tel" id="phone" name="phoneNumber" th:value="${customer.phoneNumber}" required>
+        </div>
+
+        <!-- Address Section -->
+        <h3>Address</h3>
+        <div th:if="${customer.address}">
+            <!-- Country -->
+            <div class="form-group">
+                <label for="country"><strong>Country:</strong></label>
+                <input type="text" id="country" name="address.country" th:value="${customer.address.country}" required>
+            </div>
+
+            <!-- State -->
+            <div class="form-group">
+                <label for="state"><strong>State:</strong></label>
+                <input type="text" id="state" name="address.state" th:value="${customer.address.state}" required>
+            </div>
+
+            <!-- City -->
+            <div class="form-group">
+                <label for="city"><strong>City:</strong></label>
+                <input type="text" id="city" name="address.city" th:value="${customer.address.city}" required>
+            </div>
+
+            <!-- Street -->
+            <div class="form-group">
+                <label for="street"><strong>Street:</strong></label>
+                <input type="text" id="street" name="address.street" th:value="${customer.address.street}" required>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" class="btn">Update</button>
+        </div>
+    </form>
+
+    <!-- Back to Home -->
+    <div class="form-group">
+        <a href="/customer/home">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
